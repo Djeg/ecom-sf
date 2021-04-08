@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+    php:
+        container_name: php
+        build:
+            context: ./
+            dockerfile: docker/Dockerfile
+        volumes:
+            - ./:/var/www/html
+        ports:
+            - '4444:4444'
+        command: 'symfony serve --port=4444'
+
+    mysql:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: test
