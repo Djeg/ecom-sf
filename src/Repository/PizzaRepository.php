@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Permet de récupérer des pizzas depuis notre base de données
+ * 
  * @method Pizza|null find($id, $lockMode = null, $lockVersion = null)
  * @method Pizza|null findOneBy(array $criteria, array $orderBy = null)
  * @method Pizza[]    findAll()
