@@ -14,6 +14,15 @@ class PizzaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if ($options['delete']) {
+            $builder
+                ->add('submit', SubmitType::class, [
+                    'label' => 'Supprimer cette pizza',
+                ]);
+
+            return;
+        }
+
         $builder
             ->add('name', TextType::class)
             ->add('price', MoneyType::class)
@@ -24,6 +33,7 @@ class PizzaType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Pizza::class,
+            'delete' => false,
         ]);
     }
 }

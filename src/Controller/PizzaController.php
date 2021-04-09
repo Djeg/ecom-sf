@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Pizza;
-use App\Form\DeletePizzaType;
 use App\Form\PizzaType;
-use Container2hpxX73\getManagerRegistryAwareConnectionProviderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +31,9 @@ class PizzaController extends AbstractController
             $data[$pizza->getId()] = [
                 'pizza' => $pizza,
                 'deleteForm' => $this
-                    ->createForm(DeletePizzaType::class, $pizza)
+                    ->createForm(PizzaType::class, $pizza, [
+                        'delete' => true,
+                    ])
                     ->createView(),
             ];
         }
@@ -106,7 +106,9 @@ class PizzaController extends AbstractController
      */
     public function delete(Pizza $pizza, Request $request): Response
     {
-        $form = $this->createForm(DeletePizzaType::class, $pizza);
+        $form = $this->createForm(PizzaType::class, $pizza, [
+            'delete' => true,
+        ]);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
