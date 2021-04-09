@@ -11,6 +11,10 @@
 <div class="example-wrapper">
     <h1>Liste des pizzas</h1>
 
+    <div>
+        <a href="{{ path("pizza_create") }}">Créer une nouvelle pizza</a>
+    </div>
+
     <ul>
         {% for pizza in pizzas %}
             <li>La pizza {{ pizza.name }} est à {{ pizza.price }}€</li>

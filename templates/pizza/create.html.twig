@@ -11,9 +11,9 @@
 <div class="example-wrapper">
     <h1>Créer une nouvelle pizza</h1>
 
-    {% if isSuccess %}
-        <p>La pizza {{ pizza.name }} a bien était créée</p>
-    {% endif %}
+    <div>
+        <a href="{{ path('pizza_list') }}">Retour à la liste des pizzas</a>
+    </div>
 
     {{ form(form) }}
 </div>
