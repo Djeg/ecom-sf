@@ -9,27 +9,41 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Liste des pizzas</h1>
-
-    <div>
-        <a href="{{ path("pizza_create") }}">Créer une nouvelle pizza</a>
+    <div class="row justify-content-between align-items-center mb-4">
+        <div class="col">
+            <h1>Liste des pizzas</h1>
+        </div>
+        <div class="col text-right">
+            <a href="{{ path("pizza_create") }}" class="btn btn-primary">Créer une nouvelle pizza</a>
+        </div>
     </div>
 
-    <div>
+    <div class="row">
         {% for unit in data %}
-            <div>
-                <p>
-                    La pizza {{ unit.pizza.name }} est à {{ unit.pizza.price }}€
-                </p>
-                <div>
-                    <a href="{{ path('pizza_update', { id: unit.pizza.id }) }}">Modifier cette pizza</a>
-                </div>
-                <div>
-                    {{ 
-                        form(unit.deleteForm, {
-                            action: path('pizza_delete', { id: unit.pizza.id })
-                        })
-                    }}
+            <div class="col col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="text-center">
+                            La pizza <strong>{{ unit.pizza.name }}</strong> est à {{ unit.pizza.price }}€
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row justify-content-center align-items-center mb-2">
+                            <div class="col d-flex align-items-stretch">
+                                <a
+                                    href="{{ path('pizza_update', { id: unit.pizza.id }) }}"
+                                    class="btn btn-primary col"
+                                >
+                                    Modifier cette pizza
+                                </a>
+                            </div>
+                        </div>
+                        {{ 
+                            form(unit.deleteForm, {
+                                action: path('pizza_delete', { id: unit.pizza.id })
+                            })
+                        }}
+                    </div>
                 </div>
             </div>
         {% endfor %}

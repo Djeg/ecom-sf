@@ -18,6 +18,9 @@ class PizzaType extends AbstractType
             $builder
                 ->add('submit', SubmitType::class, [
                     'label' => 'Supprimer cette pizza',
+                    'attr' => [
+                        'class' => 'btn btn-danger col'
+                    ]
                 ]);
 
             return;
