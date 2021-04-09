@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     /**
+     * Contient l'identifiant unique de notre utilisateur
+     * 
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -21,16 +23,22 @@ class User implements UserInterface
     private $id;
 
     /**
+     * Contient l'adresse email de l'utilisateur
+     * 
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
+     * Définie les "roles" que notre utilisateur posséde
+     * 
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
+     * Contient le mot de passe encrypté de notre utilisateur
+     * 
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
