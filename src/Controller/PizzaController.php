@@ -28,7 +28,7 @@ class PizzaController extends AbstractController
         $data = [];
 
         foreach ($pizzas as $pizza) {
-            $data[$pizza->getId()] = [
+            $data[] = [
                 'pizza' => $pizza,
                 'deleteForm' => $this
                     ->createForm(PizzaType::class, $pizza, [
