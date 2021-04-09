@@ -19,6 +19,9 @@
     </div>
 
     <div class="row">
+        {% if not data|length %}
+            <h3 class="col text-center">Il n'y a pas encore de pizzas enregistré</h3>
+        {% endif %}
         {% for unit in data %}
             <div class="col col-md-6">
                 <div class="card">

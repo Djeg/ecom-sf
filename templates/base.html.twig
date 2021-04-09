@@ -14,6 +14,19 @@
         {% endblock %}
     </head>
     <body>
+        {% block header %}
+            <div class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+                <a class="navbar-brand" href="{{ path('pizza_list') }}">Pizza Y'oll</a>
+
+                <div class="d-flex">
+                    {% if app.user %}
+                        <a href="{{ path('app_logout') }}" class="btn btn-light">Se déconnécter</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="btn btn-light">Se connécter</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
         <div class="container-fluid">
             {% block body %}{% endblock %}
         </div>
