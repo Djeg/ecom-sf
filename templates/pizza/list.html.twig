@@ -15,10 +15,18 @@
         <a href="{{ path("pizza_create") }}">Créer une nouvelle pizza</a>
     </div>
 
-    <ul>
+    <div>
         {% for pizza in pizzas %}
-            <li>La pizza {{ pizza.name }} est à {{ pizza.price }}€</li>
+            <div>
+                <p>
+                    La pizza {{ pizza.name }} est à {{ pizza.price }}€
+                </p>
+                <div>
+                    <a href="{{ path('pizza_update', { id: pizza.id }) }}">Modifier cette pizza</a>
+                    <a href="#">Supprimer cette pizza</a>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

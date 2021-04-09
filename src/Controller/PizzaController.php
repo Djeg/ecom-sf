@@ -58,4 +58,31 @@ class PizzaController extends AbstractController
             'pizza' => $pizza,
         ]);
     }
+
+    /**
+     * Met à jour une pizza
+     * 
+     * @Route("pizza/{id}/update", name="pizza_update", methods={"GET", "POST"})
+     */
+    public function update(Pizza $pizza, Request $request): Response
+    {
+        $form = $this->createForm(PizzaType::class, $pizza);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task = $form->getData();
+
+            $manager = $this->getDoctrine()->getManager();
+
+            $manager->persist($task);
+            $manager->flush();
+
+            return $this->redirectToRoute('pizza_list');
+        }
+
+        return $this->render('pizza/update.html.twig', [
+            'form' => $form->createView(),
+            'pizza' => $pizza,
+        ]);
+    }
 }
