@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Pizza;
+use App\Form\DeletePizzaType;
 use App\Form\PizzaType;
+use Container2hpxX73\getManagerRegistryAwareConnectionProviderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,8 +27,19 @@ class PizzaController extends AbstractController
             ->getRepository(Pizza::class)
             ->findAll();
 
+        $data = [];
+
+        foreach ($pizzas as $pizza) {
+            $data[$pizza->getId()] = [
+                'pizza' => $pizza,
+                'deleteForm' => $this
+                    ->createForm(DeletePizzaType::class, $pizza)
+                    ->createView(),
+            ];
+        }
+
         return $this->render('pizza/list.html.twig', [
-            'pizzas' => $pizzas,
+            'data' => $data,
         ]);
     }
 
@@ -84,5 +97,27 @@ class PizzaController extends AbstractController
             'form' => $form->createView(),
             'pizza' => $pizza,
         ]);
+    }
+
+    /**
+     * Suprime une pizza
+     * 
+     * @Route("pizza/{id}/delete", name="pizza_delete", methods={"POST"})
+     */
+    public function delete(Pizza $pizza, Request $request): Response
+    {
+        $form = $this->createForm(DeletePizzaType::class, $pizza);
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->redirectToRoute('pizza_list');
+        }
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $manager->remove($pizza);
+        $manager->flush();
+
+        return $this->redirectToRoute('pizza_list');
     }
 }

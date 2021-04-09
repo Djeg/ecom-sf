@@ -16,14 +16,20 @@
     </div>
 
     <div>
-        {% for pizza in pizzas %}
+        {% for unit in data %}
             <div>
                 <p>
-                    La pizza {{ pizza.name }} est à {{ pizza.price }}€
+                    La pizza {{ unit.pizza.name }} est à {{ unit.pizza.price }}€
                 </p>
                 <div>
-                    <a href="{{ path('pizza_update', { id: pizza.id }) }}">Modifier cette pizza</a>
-                    <a href="#">Supprimer cette pizza</a>
+                    <a href="{{ path('pizza_update', { id: unit.pizza.id }) }}">Modifier cette pizza</a>
+                </div>
+                <div>
+                    {{ 
+                        form(unit.deleteForm, {
+                            action: path('pizza_delete', { id: unit.pizza.id })
+                        })
+                    }}
                 </div>
             </div>
         {% endfor %}
